@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./style.css">
+  <script defer src="./main.js"></script>
+  <title>Document</title>
+</head>
+<body>
+
+
+
+  <div id="first-section">
+    <select id="item-select">
+      <option value="" disabled selected >Select an item</option>
+    </select>
+    <div class="quantity_generator">
+      <p class="quantity" id="quantity">1</p>
+      <button id="decrease-btn" onclick="decreaseQuantity()">-</button>
+      <button id="increase-btn" onclick="increaseQuantity()">+</button>
+    </div>
+    <button id="add-btn" onclick="addSection()">Add</button>
+  </div>
+  <div id="container"></div>
+
+  <div id="second-section">
+    <p id="total-price"></p>
+
+  </div>
+  
+  
+</body>
+</html>  
