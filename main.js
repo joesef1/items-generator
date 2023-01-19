@@ -10,6 +10,7 @@ var items = [
   { "Id": 9, "name": "Item 9", "price": 50.99, "Image": "https://example.com/item9.jpg" },
   { "Id": 10, "name": "Item 10", "price": 55.99, "Image": "https://example.com/item10.jpg" }
 ];
+
 for (let i = 0; i < items.length; i++) {
   var option = document.createElement("option");
   option.value = items[i].Id;
@@ -33,7 +34,7 @@ function addSection() {
     image: selectedOption.dataset.img,
     quantity: quantity
   };
-{/* <button onclick="deleteSection(this)">Delete</button> */}
+
   if (selectedItem.id) {
     var newSection = document.createElement("div");
     newSection.innerHTML = `
@@ -41,7 +42,6 @@ function addSection() {
       <p>Price: ${selectedItem.price}</p>
       <p class="quantity_counter">Quantity: ${selectedItem.quantity}</p>
       <img src="${selectedItem.image}">
-      
       <button onclick="deleteSection(this.parentNode)">Delete</button>
 
     `;
@@ -49,25 +49,23 @@ function addSection() {
     document.getElementById("container").appendChild(newSection);
     document.getElementById("quantity").textContent = 1;
     totalPrice += parseFloat(selectedItem.price) * parseInt(quantity);
+    // totalPrice += (parseFloat(selectedItem.price) * parseInt(quantity)).toFixed(2);
     document.getElementById("total-price").textContent = `Total Price: ${totalPrice}`;
   }
-
   document.getElementById("item-select").options[0].text = "Select an item";
   document.getElementById("item-select").value = "";
-
 }
 
-// function deleteSection(section) {
-//   section.parentNode.remove();
-// }
 function deleteSection(section) {
   var deletedPrice = parseFloat(section.getElementsByTagName("p")[1].textContent.split(" ")[1]);
   totalPrice -= deletedPrice * parseInt(section.getElementsByClassName("quantity_counter")[0].textContent.split(" ")[1]);
   document.getElementById("total-price").textContent = `Total Price: ${totalPrice}`;
   document.getElementById("container").removeChild(section);
+  if(!document.getElementById("container").hasChildNodes()){
+    totalPrice = 0;
+    document.getElementById("total-price").textContent = `Total Price: ${totalPrice}`;
+  }
 }
-
-
 
 function increaseQuantity() {
   var quantityElement = document.getElementById("quantity");
@@ -85,17 +83,10 @@ function decreaseQuantity() {
   }
 }
 
-// function deleteSection(section) {
-//   section.parentNode.remove();
-
-//   // Get the price of the item being deleted
-//   var itemPrice = section.querySelector("p:nth-child(2)").textContent.split(" ")[1];
-//   // Get the quantity of the item being deleted
-//   var itemQuantity = section.querySelector("p.quantity_counter").textContent.split(" ")[1];
-//   // Update the total price by subtracting the deleted item's total price
-//   totalPrice -= parseFloat(itemPrice) * parseInt(itemQuantity);
-//   // Update the total price display
-//   document.getElementById("total-price").textContent = `Total Price: ${totalPrice}`;
-//   // Remove the section
-//   section.remove();
-// }
+window.onload = function() {
+  if(totalPrice) {
+    document.getElementById("total-price").textContent = `Total Price: ${totalPrice}`;
+  } else {
+    document.getElementById("total-price").textContent = "Total Price: 0";
+  }
+}
